@@ -11,9 +11,13 @@ defmodule MonoCard.Application do
       # Start the Ecto repository
       MonoCard.Repo,
       # Start the endpoint when the application starts
-      MonoCardWeb.Endpoint
+      MonoCardWeb.Endpoint,
       # Starts a worker by calling: MonoCard.Worker.start_link(arg)
       # {MonoCard.Worker, arg},
+      %{
+        id: MonoBot.BotSupervisor,
+        start: {MonoBot.BotSupervisor, :start_link, []}
+      }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

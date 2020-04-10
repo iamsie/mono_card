@@ -43,7 +43,8 @@ defmodule MonoCard.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:nadia, "~> 0.6.0"}
+      {:nadia, "~> 0.6.0"},
+      {:ex_monobank, "~> 1.0.0"}
     ]
   end
 
