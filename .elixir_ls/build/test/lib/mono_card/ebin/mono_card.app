@@ -6,6 +6,8 @@
               {description,"mono_card"},
               {modules,['Elixir.MonoApi','Elixir.MonoBot.BotSupervisor',
                         'Elixir.MonoBot.BotWorker','Elixir.MonoCard',
+                        'Elixir.MonoCard.Accounts',
+                        'Elixir.MonoCard.Accounts.Users',
                         'Elixir.MonoCard.Application',
                         'Elixir.MonoCard.DataCase','Elixir.MonoCard.Repo',
                         'Elixir.MonoCardWeb','Elixir.MonoCardWeb.ChannelCase',
