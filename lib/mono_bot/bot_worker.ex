@@ -1,40 +1,18 @@
 defmodule MonoBot.BotWorker do
-  require Logger
   use GenServer
   use Tesla
 
-  alias MonoCard.Accounts.Users
   alias MonoCard.Accounts
 
-  @default_chat_ids [197_893_092, 1]
-  @default_chat_id 197_893_092
-  @default_mono_token "ux31VQVUOG7QFCd2WDpdN-7qSpWGY6F3tEAYM2B9LeO8"
-
   def start_link(args \\ %{}, opts \\ []) do
-    Logger.info("Worker starts")
     GenServer.start_link(__MODULE__, args, opts)
   end
 
   def init(args) do
-    Logger.info("Worker inits")
-
     Process.send_after(self(), :messages, 5000)
-    # Process.send_after(self(), :balance_check, 5000)
+
     {:ok, Map.merge(args, %{offset: 0, api_key: nil})}
   end
-
-  # def handle_info(:balance, state) do
-  #   balance = check_balance(state.api_key)
-
-  #   if balance < 13000,
-  #     do:
-  #       Nadia.send_message(
-  #         state.chat_id,
-  #         "You have less, than 1 000 uah on the card! Time to add more money!"
-  #       )
-
-  #   Process.send_after(self(), :balance, :timer.hours(2))
-  # end
 
   def handle_info(:messages, state) do
     {:ok, updates} = Nadia.get_updates(offset: state.offset)
@@ -92,7 +70,6 @@ defmodule MonoBot.BotWorker do
             "! Seems like you are a newcomer. So,send me your MONO_API_KEY",
           reply_markup: %Nadia.Model.ReplyKeyboardMarkup{
             keyboard: [
-              # [%{text: "View Balance"}],
               [%{text: "Send/Update API_MONO_KEY"}]
             ],
             resize_keyboard: true,
@@ -106,7 +83,7 @@ defmodule MonoBot.BotWorker do
 
   defp answer_the_messages(chat_id, message) do
     cond do
-      message > 25 && message !== "Send/Update API_MONO_KEY" ->
+      String.length(message) > 25 && message !== "Send/Update API_MONO_KEY" ->
         Accounts.insert(%{chat_id: chat_id, api_key: message})
 
         Nadia.send_message(
@@ -158,7 +135,7 @@ defmodule MonoBot.BotWorker do
     end
   end
 
-  defp check_balance(api_key) do
+  def check_balance(api_key) do
     {:ok, env} =
       MonoApi.new(api_key)
       |> Tesla.get("https://api.monobank.ua/personal/client-info")
@@ -166,11 +143,24 @@ defmodule MonoBot.BotWorker do
     balance_with_cents =
       env.body
       |> String.split(",")
-      |> Enum.filter(fn str -> String.contains?(str, "balance") end)
-      |> Enum.map(fn str -> String.split(str, ":") end)
-      |> List.flatten()
-      |> Enum.at(1)
-      |> String.to_integer()
+      |> Enum.filter(fn str ->
+        String.contains?(str, "balance") || String.contains?(str, "type")
+      end)
+      |> Enum.chunk_every(2)
+      |> Enum.map(fn list -> List.to_string(list) end)
+      |> Enum.filter(fn str ->
+        String.contains?(str, "white")
+      end)
+      |> Enum.map(fn str ->
+        String.split(str, "type")
+        |> Enum.at(0)
+        |> String.split(":")
+        |> Enum.at(1)
+        |> String.split("\"")
+        |> Enum.at(0)
+        |> String.to_integer()
+      end)
+      |> Enum.at(0)
 
     (balance_with_cents - rem(balance_with_cents, 100)) / 100
   end
