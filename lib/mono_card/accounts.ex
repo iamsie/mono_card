@@ -4,20 +4,19 @@ defmodule MonoCard.Accounts do
   import Ecto.Query, warn: false
 
   def insert(%{chat_id: chat_id, api_key: _api_key} = attrs) do
-    if exist_by_chat_id?(chat_id) === false do
-      Users.changeset(%Users{}, attrs)
-      |> Repo.insert()
-    else
-      Users.changeset(%Users{}, attrs)
-      |> Repo.update()
+    case Repo.get_by(Users, %{chat_id: chat_id}) do
+      nil -> %Users{}
+      user -> user
     end
+    |> Users.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 
   def exist_by_chat_id?(chat_id) do
-    Users
-    |> from()
-    |> where([u], u.chat_id == ^chat_id)
-    |> Repo.exists?()
+    case Repo.get_by(Users, %{chat_id: chat_id}) do
+      nil -> false
+      _user -> true
+    end
   end
 
   def get_api_key(chat_id) do

@@ -58,11 +58,13 @@ defmodule MonoBot.BotWorker do
 
   def handle_cast(:message, %{message: message} = state) do
     cond do
-      Accounts.exist_by_chat_id?(state.chat_id) === true || message !== "Send/Update API_MONO_KEY" ||
-          message > 25 ->
+      Accounts.exist_by_chat_id?(state.chat_id) === true || message === "Send/Update API_MONO_KEY" ||
+          String.length(message) > 25 ->
         answer_the_messages(state.chat_id, message)
 
       true ->
+        IO.inspect(message)
+
         Nadia.send_message(
           state.chat_id,
           "Hi, " <>
