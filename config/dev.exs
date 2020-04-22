@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :mono_card, MonoCard.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "mono_card_dev",
-  hostname: "localhost",
+  username: System.get_env("POSTGRES_USERNAME"),
+  password: System.get_env("POSTGRES_PASSWORD"),
+  database: System.get_env("DB_NAME"),
+  hostname: System.get_env("PG_HOST"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
