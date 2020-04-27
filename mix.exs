@@ -46,7 +46,8 @@ defmodule MonoCard.MixProject do
       {:nadia, "~> 0.6.0"},
       {:ex_monobank, "~> 1.0.0"},
       {:tesla, "~> 1.3.0"},
-      {:hackney, "~> 1.15.2"}
+      {:hackney, "~> 1.15.2"},
+      {:ex_mono_wrapper, "~> 0.1.0"}
     ]
   end
 

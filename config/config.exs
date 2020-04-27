@@ -26,7 +26,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :nadia,
-  token: "1148214767:AAEsDnbHTRcPuAbrEdWX31GX-5_PZuO_9UU"
+  token: System.get_env("TG_BOT_TOKEN")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

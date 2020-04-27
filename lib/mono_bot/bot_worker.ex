@@ -138,32 +138,11 @@ defmodule MonoBot.BotWorker do
   end
 
   def check_balance(api_key) do
-    {:ok, env} =
-      MonoApi.new(api_key)
-      |> Tesla.get("https://api.monobank.ua/personal/client-info")
+    card_info =
+      ExMonoWrapper.get_client_info(api_key).accounts
+      |> Enum.filter(fn map -> map.type === "white" end)
+      |> List.first()
 
-    balance_with_cents =
-      env.body
-      |> String.split(",")
-      |> Enum.filter(fn str ->
-        String.contains?(str, "balance") || String.contains?(str, "type")
-      end)
-      |> Enum.chunk_every(2)
-      |> Enum.map(fn list -> List.to_string(list) end)
-      |> Enum.filter(fn str ->
-        String.contains?(str, "white")
-      end)
-      |> Enum.map(fn str ->
-        String.split(str, "type")
-        |> Enum.at(0)
-        |> String.split(":")
-        |> Enum.at(1)
-        |> String.split("\"")
-        |> Enum.at(0)
-        |> String.to_integer()
-      end)
-      |> Enum.at(0)
-
-    (balance_with_cents - rem(balance_with_cents, 100)) / 100
+    (card_info.balance - rem(card_info.balance, 100)) / 100
   end
 end
