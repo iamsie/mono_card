@@ -11,6 +11,7 @@
                         'Elixir.MonoCard.Accounts.Users',
                         'Elixir.MonoCard.Application',
                         'Elixir.MonoCard.DataCase','Elixir.MonoCard.Repo',
+                        'Elixir.MonoCard.WebhookHandlerController',
                         'Elixir.MonoCardWeb','Elixir.MonoCardWeb.ChannelCase',
                         'Elixir.MonoCardWeb.ConnCase',
                         'Elixir.MonoCardWeb.Endpoint',
