@@ -17,12 +17,11 @@ defmodule MonoCardWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/webhook", WebhookController, only: [:index, :create]
   end
 
   # Other scopes may use custom stacks.
-  scope "/webhook", MonoCardWeb do
-    pipe_through :api
-
-    resources "/webhook", WebhookController, only: [:index, :create]
-  end
+  # scope "/webhook", MonoCardWeb do
+  #   pipe_through :api
+  # end
 end
