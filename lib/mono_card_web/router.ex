@@ -17,7 +17,7 @@ defmodule MonoCardWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/webhook_handler", WebHookHandlerController, only: [:index, :create]
+    resources "/webhook", WebhookController, only: [:index, :create]
   end
 
   # Other scopes may use custom stacks.
