@@ -7,6 +7,7 @@ defmodule MonoCard.Accounts do
   def insert(%{chat_id: chat_id, api_key: api_key} = attrs) do
     monobank_accounts_info =
       ExMonoWrapper.get_client_info(api_key)
+      |> Map.get(:accounts)
       |> Enum.filter(fn map -> map.type === "white" end)
       |> List.first()
 
@@ -21,7 +22,7 @@ defmodule MonoCard.Accounts do
     |> Users.changeset(attrs)
     |> Repo.insert_or_update()
 
-    BotWorker.send_webhook(api_key)
+    BotWorker.set_webhook(api_key)
   end
 
   def exist_by_chat_id?(chat_id) do
