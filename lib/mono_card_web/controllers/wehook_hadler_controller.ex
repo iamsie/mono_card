@@ -1,7 +1,11 @@
-defmodule MonoCard.WebhookHandlerController do
+defmodule MonoCard.WebHookHandlerController do
   alias MonoBot.Replier
   alias MonoCard.Accounts
   require Logger
+
+  def index(conn, _params) do
+    conn
+  end
 
   def create(_conn, payload) do
     Logger.info("Get a payload")
