@@ -55,6 +55,17 @@ defmodule MonoBot.Replier do
     end
   end
 
+  def balance_less_1000(balance, white_card_id) do
+    chat_id = Accounts.get_chat_id_by_card_id(white_card_id)
+
+    balance_without_cents = (balance - rem(balance, 100)) / 100
+
+    Nadia.send_message(
+      chat_id,
+      "Hey, you have less than 1000 uah (#{balance_without_cents} uah). It's time to add more money!"
+    )
+  end
+
   defp check_balance(api_key) do
     card_info =
       ExMonoWrapper.get_client_info(api_key).accounts

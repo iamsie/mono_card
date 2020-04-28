@@ -74,6 +74,12 @@ defmodule MonoBot.BotWorker do
     {:noreply, state}
   end
 
+  def send_webhook(api_key) do
+    ExMonoWrapper.post_personal_webhook(api_key, %{
+      webhookurl: System.get_env("WEB_HOOK_URL")
+    })
+  end
+
   defp tick(interval \\ 1_000, task) when is_integer(interval) do
     Process.send_after(self(), {:tick, task}, interval)
   end
