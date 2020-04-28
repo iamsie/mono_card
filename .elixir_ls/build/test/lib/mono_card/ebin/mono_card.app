@@ -11,7 +11,6 @@
                         'Elixir.MonoCard.Accounts.Users',
                         'Elixir.MonoCard.Application',
                         'Elixir.MonoCard.DataCase','Elixir.MonoCard.Repo',
-                        'Elixir.MonoCard.WebhookController',
                         'Elixir.MonoCardWeb','Elixir.MonoCardWeb.ChannelCase',
                         'Elixir.MonoCardWeb.ConnCase',
                         'Elixir.MonoCardWeb.Endpoint',
@@ -23,7 +22,8 @@
                         'Elixir.MonoCardWeb.PageView',
                         'Elixir.MonoCardWeb.Router',
                         'Elixir.MonoCardWeb.Router.Helpers',
-                        'Elixir.MonoCardWeb.UserSocket']},
+                        'Elixir.MonoCardWeb.UserSocket',
+                        'Elixir.MonoCardWeb.WebhookController']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.MonoCard.Application',[]}}]}.

@@ -2,7 +2,7 @@ defmodule MonoCardWeb.Router do
   use MonoCardWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -17,11 +17,12 @@ defmodule MonoCardWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/webhook", WebhookController, only: [:index, :create]
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MonoCardWeb do
-  #   pipe_through :api
-  # end
+  scope "/webhook", MonoCardWeb do
+    pipe_through :api
+
+    resources "/webhook", WebhookController, only: [:index, :create]
+  end
 end

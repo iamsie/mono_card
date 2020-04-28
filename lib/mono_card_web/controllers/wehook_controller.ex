@@ -1,4 +1,4 @@
-defmodule MonoCard.WebhookController do
+defmodule MonoCardWeb.WebhookController do
   alias MonoBot.Replier
   alias MonoCard.Accounts
   require Logger
