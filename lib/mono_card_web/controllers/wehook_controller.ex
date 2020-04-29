@@ -17,5 +17,8 @@ defmodule MonoCardWeb.WebhookController do
       do: Replier.balance_less_1000(balance, white_card_id)
 
     conn
+    |> put_status(:ok)
+    |> send_resp(200, "")
+    |> halt()
   end
 end
