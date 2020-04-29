@@ -5,7 +5,7 @@ defmodule MonoCardWeb.Router do
     plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
