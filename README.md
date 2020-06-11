@@ -7,7 +7,7 @@ Using this bot, you can:
 
 Find bot by username: **@whitemonobot**
 
-![](https://i.imgur.com/5oWwSHJ.png)
+![](https://i.imgur.com/s2PJFB6.png)
 
 
 Limitation: bot can only show the balance of MonoBank White Card. 
