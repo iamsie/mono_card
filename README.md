@@ -1,20 +1,15 @@
-# MonoCard
+# MonoCard Telegram Bot
 
-To start your Phoenix server:
+## About
+Using this bot, you can:
+* view the current balance on the card;
+* be notified when the balance is less than 1000 uah. 
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Find bot by username: **@whitemonobot**
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+![](https://i.imgur.com/5oWwSHJ.png)
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
+Limitation: bot can only show the balance of MonoBank White Card. 
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+**Before you start to use MonoBank White Bot, you have to provide MonoBank API Key.** Visit this site to know how to get a key: https://api.monobank.ua/
