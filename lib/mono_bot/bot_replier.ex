@@ -2,6 +2,8 @@ defmodule MonoBot.Replier do
   alias MonoCard.Accounts
 
   def answer_the_messages(chat_id, message) do
+    IO.inspect(message)
+
     cond do
       String.length(message) > 25 ->
         Accounts.insert(%{chat_id: chat_id, api_key: message})
